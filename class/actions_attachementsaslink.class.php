@@ -48,6 +48,9 @@ class ActionsAttachementsAsLink
 	 */
 	public function __construct()
 	{
+	    
+        
+        
 	}
 
     function getFormMail($parameters, &$object, &$action, $hookmanager) {
@@ -71,7 +74,7 @@ class ActionsAttachementsAsLink
             $sep = "<br />\n";
             
             $object->substit['__PERSONALIZED__'].=$sep.$langs->trans('SeeAttachementBelow');
-            
+           
             foreach($listofpaths as $k=>$attachement) {
                 $checksum = md5($attachement.'/'.$listofmimes[$k].'/'.filesize($attachement));
                 $object->substit['__PERSONALIZED__'].=$sep.'<a href="'.dol_buildpath('/attachementsaslink/link/attachement.php?attachement='.urlencode(substr($attachement, strlen(DOL_DATA_ROOT)) ).'&mime='.urlencode($listofmimes[$k]).'&checksum='.$checksum  ,2).'">'.$listofnames[$k].'</a>';
