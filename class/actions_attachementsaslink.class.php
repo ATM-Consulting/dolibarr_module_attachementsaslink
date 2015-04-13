@@ -50,6 +50,49 @@ class ActionsAttachementsAsLink
 	{
 	}
 
+    function getFormMail($parameters, &$object, &$action, $hookmanager) {
+            
+        global $langs,$conf;    
+            
+        $listofpaths=array();
+        $listofnames=array();
+        $listofmimes=array();    
+        
+        if (! empty($_SESSION["listofpaths"])) $listofpaths=explode(';',$_SESSION["listofpaths"]);
+        if (! empty($_SESSION["listofnames"])) $listofnames=explode(';',$_SESSION["listofnames"]);
+        if (! empty($_SESSION["listofmimes"])) $listofmimes=explode(';',$_SESSION["listofmimes"]);
+        
+        //var_dump($listofpaths,$listofnames,$listofmimes, $object, $parameters);
+        
+        if(count($listofpaths>0)) {
+        
+            $langs->load('attachementsaslink@attachementsaslink');
+        
+            $sep = "<br />\n";
+            
+            $object->substit['__PERSONALIZED__'].=$sep.$langs->trans('SeeAttachementBelow');
+            
+            foreach($listofpaths as $k=>$attachement) {
+                $checksum = md5($attachement.'/'.$listofmimes[$k].'/'.filesize($attachement));
+                $object->substit['__PERSONALIZED__'].=$sep.'<a href="'.dol_buildpath('/attachementsaslink/attachement.php?attachement='.urlencode(substr($attachement, strlen(DOL_DATA_ROOT)) ).'&mime='.urlencode($listofmimes[$k]).'&checksum='.$checksum  ,2).'">'.$listofnames[$k].'</a>';
+                
+            }
+            
+            $object->substit['__PERSONALIZED__'].=$sep;
+            
+            if($conf->global->ATTACHEMENTASLINK_DELETE_ATTACHEMENT) {
+                $_SESSION['listofpaths']=array();
+                $_SESSION['listofnames']=array();
+                $_SESSION['listofmimes']=array();
+                
+            }
+            
+        }
+        
+        
+        
+    }
+
 	/**
 	 * Overloading the doActions function : replacing the parent's function with the one below
 	 *
