@@ -1,7 +1,7 @@
 <?php
 
     define('INC_FROM_CRON_SCRIPT',true);
-    require('config.php');
+    require('../config.php');
     
     
     $attachement=DOL_DATA_ROOT.GETPOST('attachement');
