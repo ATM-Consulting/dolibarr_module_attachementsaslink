@@ -1,5 +1,6 @@
 <?php
 
+    define('INC_FROM_CRON_SCRIPT',true);
     require('config.php');
     
     
@@ -22,4 +23,8 @@
         readfile($attachement);
         exit(); 
         
+    }
+    else {
+        $langs->load('attachementsaslink@attachementsaslink');
+        exit($langs->trans('ErrorOnAttachement'));
     }

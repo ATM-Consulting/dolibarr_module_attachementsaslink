@@ -7,3 +7,4 @@ AttachementsAsLinkSetup = Configuration du module AttachementsAsLink
 AttachementsAsLinkAbout = A propos du module AttachementsAsLink
 ATTACHEMENTASLINK_DELETE_ATTACHEMENT=Ne laisser que les liens, supprimer les pièces jointes
 SeeAttachementBelow=Voir les fichiers joints ci-après :
+ErrorOnAttachement=Le lien pointe sur un fichier qui a soit été supprimé, soit été regénéré depuis l'envoi du mail.
