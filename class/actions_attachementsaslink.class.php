@@ -55,11 +55,11 @@ class ActionsAttachementsAsLink
 
     function getFormMail($parameters, &$object, &$action, $hookmanager) {
             
-        global $langs,$conf;    
+        global $langs,$conf;
             
         $listofpaths=array();
         $listofnames=array();
-        $listofmimes=array();    
+        $listofmimes=array();
         
         if (! empty($_SESSION["listofpaths"])) $listofpaths=explode(';',$_SESSION["listofpaths"]);
         if (! empty($_SESSION["listofnames"])) $listofnames=explode(';',$_SESSION["listofnames"]);
@@ -67,7 +67,7 @@ class ActionsAttachementsAsLink
         
         //var_dump($listofpaths,$listofnames,$listofmimes, $object, $parameters);
         
-        if(count($listofpaths>0)) {
+        if(count($listofpaths)>0) {
         
             $langs->load('attachementsaslink@attachementsaslink');
         
@@ -78,7 +78,6 @@ class ActionsAttachementsAsLink
             foreach($listofpaths as $k=>$attachement) {
                 $checksum = md5($attachement.'/'.$listofmimes[$k].'/'.filesize($attachement));
                 $object->substit['__PERSONALIZED__'].=$sep.'<a href="'.dol_buildpath('/attachementsaslink/link/attachement.php?attachement='.urlencode(substr($attachement, strlen(DOL_DATA_ROOT)) ).'&mime='.urlencode($listofmimes[$k]).'&checksum='.$checksum  ,2).'">'.$listofnames[$k].'</a>';
-                
             }
             
             $object->substit['__PERSONALIZED__'].=$sep;
@@ -87,13 +86,8 @@ class ActionsAttachementsAsLink
                 $_SESSION['listofpaths']=array();
                 $_SESSION['listofnames']=array();
                 $_SESSION['listofmimes']=array();
-                
             }
-            
         }
-        
-        
-        
     }
 
 	/**
