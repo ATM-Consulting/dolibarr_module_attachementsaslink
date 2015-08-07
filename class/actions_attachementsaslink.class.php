@@ -73,14 +73,14 @@ class ActionsAttachementsAsLink
         
             $sep = "<br />\n";
             
-            $object->substit['__PERSONALIZED__'].=$sep.$langs->trans('SeeAttachementBelow');
+            $object->substit['__PERSONALIZED__'].=$langs->trans('SeeAttachementBelow');
            
             foreach($listofpaths as $k=>$attachement) {
                 $checksum = md5($attachement.'/'.$listofmimes[$k].'/'.filesize($attachement));
                 $object->substit['__PERSONALIZED__'].=$sep.'<a href="'.dol_buildpath('/attachementsaslink/link/attachement.php?attachement='.urlencode(substr($attachement, strlen(DOL_DATA_ROOT)) ).'&mime='.urlencode($listofmimes[$k]).'&checksum='.$checksum  ,2).'">'.$listofnames[$k].'</a>';
             }
             
-            $object->substit['__PERSONALIZED__'].=$sep;
+            $object->substit['__PERSONALIZED__'].=$sep.$sep;
             
             if($conf->global->ATTACHEMENTASLINK_DELETE_ATTACHEMENT) {
                 $_SESSION['listofpaths']=array();
