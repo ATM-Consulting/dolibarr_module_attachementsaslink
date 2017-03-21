@@ -61,18 +61,19 @@ class ActionsAttachementsAsLink
         $listofnames=array();
         $listofmimes=array();
         
-        if (! empty($_SESSION["listofpaths"])) $listofpaths=explode(';',$_SESSION["listofpaths"]);
-        if (! empty($_SESSION["listofnames"])) $listofnames=explode(';',$_SESSION["listofnames"]);
-        if (! empty($_SESSION["listofmimes"])) $listofmimes=explode(';',$_SESSION["listofmimes"]);
+        $keytoavoidconflict = empty($object->trackid)?'':'-'.$object->trackid;   // this->trackid must be defined
         
-        //var_dump($listofpaths,$listofnames,$listofmimes, $object, $parameters);
+        if (! empty($_SESSION["listofpaths".$keytoavoidconflict])) $listofpaths=explode(';',$_SESSION["listofpaths".$keytoavoidconflict]);
+        if (! empty($_SESSION["listofnames".$keytoavoidconflict])) $listofnames=explode(';',$_SESSION["listofnames".$keytoavoidconflict]);
+        if (! empty($_SESSION["listofmimes".$keytoavoidconflict])) $listofmimes=explode(';',$_SESSION["listofmimes".$keytoavoidconflict]);
+       
         
         if(count($listofpaths)>0) {
         
             $langs->load('attachementsaslink@attachementsaslink');
         
             $sep = "<br />\n";
-            
+   
             $object->substit['__PERSONALIZED__'].=$langs->trans('SeeAttachementBelow');
            
             foreach($listofpaths as $k=>$attachement) {
